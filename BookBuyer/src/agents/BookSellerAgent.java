@@ -15,11 +15,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class BookSellerAgent extends Agent{
 
-	private Hashtable catalogue;
+	private Hashtable catalogo;
 	private BookSellerGui gui;
 	
 	protected void setup() {
-	  catalogue = new Hashtable();
+	  catalogo = new Hashtable();
 	  
 	  gui = new BookSellerGui(this);
 	  gui.showGui();
@@ -52,19 +52,19 @@ public class BookSellerAgent extends Agent{
 	  
 	  gui.dispose();
 	  
-	  System.out.println("Seller agent " + getAID().getName() + "terminating");
+	  System.out.println("Agente vendedor " + getAID().getName() + "terminado");
 	}
 	
-	public void updateCatalogue(final String title, final int price) {
+	public void updateCatalogue(final String titulo, final int precio) {
 	  addBehaviour(new OneShotBehaviour() {
 	    public void action() {
-	      catalogue.put(title, price);
-	      System.out.println(title + " inserted with a price of " + price);
+	      catalogo.put(titulo, precio);
+	      System.out.println(titulo + " insertado en el catálogo con el precio " + precio);
 	    }
 	  });
 	}
 	
 	public Hashtable getCatalogue() {
-	  return catalogue;
+	  return catalogo;
 	}
 }

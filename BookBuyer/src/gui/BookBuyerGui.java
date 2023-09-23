@@ -30,33 +30,33 @@ import agents.BookBuyerAgent;
  * @author Slonder
  */
 public class BookBuyerGui extends JFrame{
-    private BookBuyerAgent myAgent;
+    private BookBuyerAgent miAgente;
 	
-	private JTextField titleField;
+	private JTextField tituloF;
 	
 	public BookBuyerGui(BookBuyerAgent a) {
 		super(a.getLocalName());
 		
-		myAgent = a;
+		miAgente = a;
 		
                 //especificamos los elementos de la ventana
                 
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(1, 1));
 		p.add(new JLabel("Título del libro: "));
-		titleField = new JTextField(15);
-		p.add(titleField);
+		tituloF = new JTextField(15);
+		p.add(tituloF);
 		getContentPane().add(p, BorderLayout.CENTER);
 		
-		JButton addButton = new JButton("Buy");
+		JButton addButton = new JButton("Comprar");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					String title = titleField.getText().trim();
+					String title = tituloF.getText().trim();
 						
                                         //méthod to buy book
-					myAgent.pedidoCompra(title);
-					titleField.setText("");
+					miAgente.pedidoCompra(title);
+					tituloF.setText("");
 				}catch(Exception e) {
 					JOptionPane.showMessageDialog(BookBuyerGui.this, "Invalid values","Error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -69,7 +69,7 @@ public class BookBuyerGui extends JFrame{
 		
 		addWindowListener(new WindowAdapter() {
 		  public void windowClosing(WindowEvent e) {
-		    myAgent.doDelete();
+		    miAgente.doDelete();
 		  }
 		});
 		

@@ -19,35 +19,35 @@ import javax.swing.JTextField;
 import agents.BookSellerAgent;
 
 public class BookSellerGui extends JFrame {
-	private BookSellerAgent myAgent;
+	private BookSellerAgent miAgente;
 	
-	private JTextField titleField, priceField;
+	private JTextField tituloF, precioF;
 	
 	public BookSellerGui(BookSellerAgent a) {
 		super(a.getLocalName());
 		
-		myAgent = a;
+		miAgente = a;
 		
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(2, 2));
-		p.add(new JLabel("Book title:"));
-		titleField = new JTextField(15);
-		p.add(titleField);
-		p.add(new JLabel("Price:"));
-		priceField = new JTextField(15);
-		p.add(priceField);
+		p.add(new JLabel("Título del libro:"));
+		tituloF = new JTextField(15);
+		p.add(tituloF);
+		p.add(new JLabel("Precio:"));
+		precioF = new JTextField(15);
+		p.add(precioF);
 		getContentPane().add(p, BorderLayout.CENTER);
 		
-		JButton addButton = new JButton("Add");
+		JButton addButton = new JButton("Agregar");
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					String title = titleField.getText().trim();
-					String price = priceField.getText().trim();
+					String titulo = tituloF.getText().trim();
+					String precio = precioF.getText().trim();
 					
-					myAgent.updateCatalogue(title, Integer.parseInt(price));
-					titleField.setText("");
-					priceField.setText("");
+					miAgente.updateCatalogue(titulo, Integer.parseInt(precio));
+					tituloF.setText("");
+					precioF.setText("");
 				}catch(Exception e) {
 					JOptionPane.showMessageDialog(BookSellerGui.this, "Invalid values","Error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -60,7 +60,7 @@ public class BookSellerGui extends JFrame {
 		
 		addWindowListener(new WindowAdapter() {
 		  public void windowClosing(WindowEvent e) {
-		    myAgent.doDelete();
+		    miAgente.doDelete();
 		  }
 		});
 		
