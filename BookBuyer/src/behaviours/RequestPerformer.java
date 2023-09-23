@@ -76,12 +76,12 @@ public class RequestPerformer extends Behaviour{
       reply = myAgent.receive(mt);
       if (reply != null) {
          if (reply.getPerformative() == ACLMessage.INFORM) {
-            System.out.println(bookTitle+" successfully purchased from agent "+reply.getSender().getName());
+            System.out.println(bookTitle+" exitosamente comprado por el agente "+reply.getSender().getName());
             System.out.println("Price = "+bestPrice);
             myAgent.doDelete();
          }
          else {
-            System.out.println("Attempt failed: requested book already sold.");
+            System.out.println("Intento fallido: Libro ya agotado");
          }
 
          step = 4;
@@ -95,7 +95,7 @@ public class RequestPerformer extends Behaviour{
   
   public boolean done() {
     if (step == 2 && bestSeller == null) {
-       System.out.println("Attempt failed: "+bookTitle+" not available for sale");
+       System.out.println("Inteto fallido: "+bookTitle+" no esta a la venta");
     }
     return ((step == 2 && bestSeller == null) || step == 4);
  }

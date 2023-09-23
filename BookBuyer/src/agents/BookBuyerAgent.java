@@ -12,17 +12,17 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import gui.BookBuyerGui;
 
 public class BookBuyerAgent extends Agent {
-  private String bookTitle;
-  private AID[] sellerAgents;
+  private String tituloLibro;
+  private AID[] agentesVendedores;
   private int ticker_timer = 10000;
   private BookBuyerAgent this_agent = this;
-  private BookBuyerGui myGUI;
+  private BookBuyerGui gui;
   
   protected void setup() {
-    System.out.println("Buyer agent " + getAID().getName() + " is ready");
+    System.out.println("El agente comprador " + getAID().getName() + " esta listo");
     
-    myGUI = new BookBuyerGui(this);
-    myGUI.showGui();
+    gui = new BookBuyerGui(this);
+    gui.showGui();
     
     
     
@@ -32,12 +32,12 @@ public class BookBuyerAgent extends Agent {
   public void pedidoCompra(String titulo){
     
     if(titulo != null && titulo.length() > 0) {
-      bookTitle = titulo;
-      System.out.println("Book: " + bookTitle);
+      tituloLibro = titulo;
+      System.out.println("Libro: " + tituloLibro);
       
       addBehaviour(new TickerBehaviour(this, ticker_timer) {
         protected void onTick() {
-          System.out.println("Trying to buy " + bookTitle);
+          System.out.println("Tratando de comprar " + tituloLibro);
           
           DFAgentDescription template = new DFAgentDescription();
           ServiceDescription sd = new ServiceDescription();
@@ -46,11 +46,11 @@ public class BookBuyerAgent extends Agent {
           
           try {
             DFAgentDescription[] result = DFService.search(myAgent, template);
-            System.out.println("Found the following seller agents:");
-            sellerAgents = new AID[result.length];
+            System.out.println("Se han encontrado los siguientes vendedores: ");
+            agentesVendedores = new AID[result.length];
             for(int i = 0; i < result.length; i++) {
-              sellerAgents[i] = result[i].getName();
-              System.out.println(sellerAgents[i].getName());
+              agentesVendedores[i] = result[i].getName();
+              System.out.println(agentesVendedores[i].getName());
             }
             
           }catch(FIPAException fe) {
@@ -61,23 +61,23 @@ public class BookBuyerAgent extends Agent {
         }
       });
     } else {
-      System.out.println("No target book title specified");
+      System.out.println("No se ha especificado el titulo del libro");
       doDelete();
     }
   }
   
   
   protected void takeDown() {
-    System.out.println("Buyer agent " + getAID().getName() + " terminating");
+    System.out.println("Agente comprador " + getAID().getName() + " terminando");
     doDelete();
-    myGUI.dispose();
+    gui.dispose();
   }
   
   public AID[] getSellerAgents() {
-    return sellerAgents;
+    return agentesVendedores;
   }
   
   public String getBookTitle() {
-    return bookTitle;
+    return tituloLibro;
   }
 }
